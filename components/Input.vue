@@ -3,9 +3,9 @@
     <v-text-field
             label="Nome"
             required
-            placeholder="valorInicial"
+            v-model="valor"
     ></v-text-field>
-    <v-btn x-large v-on:click="incrementar">Adicionar</v-btn>
+    <v-btn x-large v-on:click="adicionarNome">Adicionar</v-btn>
     {{valorInicial}}
   </div>
 </template>
@@ -14,7 +14,7 @@
 export default {
   data() {
     return {
-      qtd: 20,
+      valor: "",
     }
   },
   props: {
@@ -25,10 +25,8 @@ export default {
   },
   methods: {
     adicionarNome: function(){
-      alert("Adicionado");
-    },
-    incrementar: function(){
-      this.$emit('update', this.qtd);
+      this.$emit('salvar', this.valor);
+      this.valor = "";
     }
   }
 }

@@ -1,13 +1,13 @@
 <template>
     <div>
+      <NuxtLink to="/">Home page</NuxtLink>
       <div
         :class="[`text-${title[0]}`, `mb-${title[2]}`]"
         class="transition-swing"
         v-text="title[1]"
       >
       </div>
-    <Input :valorInicial="nome"  v-on:update="updateCart" />
-    {{quantidade}}
+    <Input v-on:salvar="adicionarNome" />
     </div>
 </template>
 
@@ -25,13 +25,19 @@ export default {
       title: ['h1', 'Adicionar Nome', 6],
       items: [],
       nome: "Daniel Aprea",
-      quantidade: 0,
+      novoNome: "",
     }
   },
   methods: {
-    updateCart(valor) {
-      this.quantidade = valor;
-      //this.quantidade = valor;
+    async adicionarNome(valor) {
+      /*this.novoNome = valor;*/
+
+      this.$axios.$post('http://localhost:3004/nomes', {
+        nome: valor
+      });
+      /*const nome = await this.$axios.$get('http://localhost:3004/nomes')
+      this.items = nome
+      this.load = false;*/
     }
   }
 }
