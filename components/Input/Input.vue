@@ -6,7 +6,6 @@
             v-model="valor"
     ></v-text-field>
     <v-btn x-large v-on:click="adicionarNome">Adicionar</v-btn>
-    {{valorInicial}}
   </div>
 </template>
 
@@ -15,12 +14,6 @@ export default {
   data() {
     return {
       valor: "",
-    }
-  },
-  props: {
-    valorInicial: {
-      type: String,
-      required: true
     }
   },
   methods: {

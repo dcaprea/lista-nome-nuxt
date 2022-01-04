@@ -7,13 +7,13 @@
         v-text="title[1]"
       >
       </div>
-    <Input v-on:salvar="adicionarNome" />
+    <Input v-on:salvar="addUser" />
     </div>
 </template>
 
 
 <script>
-  import Input from './../components/Input'
+import Input from '../components/Input/Input'
 
 export default {
   name: 'Adicionar',
@@ -26,18 +26,33 @@ export default {
       items: [],
       nome: "Daniel Aprea",
       novoNome: "",
+      novoId: ""
     }
   },
   methods: {
-    async adicionarNome(valor) {
-      /*this.novoNome = valor;*/
-
+    numberUsers() {
+      try{
+      this.$axios.$get('http://localhost:3004/nomes').then(
+        (nome) => {
+          this.novoId = nome.lenght;
+        }
+      )
+      }catch(error){
+        console.log(error)
+      }
+    },
+    addUser(valor) {
+      this.numberUsers();
       this.$axios.$post('http://localhost:3004/nomes', {
-        nome: valor
-      });
-      /*const nome = await this.$axios.$get('http://localhost:3004/nomes')
-      this.items = nome
-      this.load = false;*/
+        nome: valor,
+        id: this.novoId
+      }).then(
+        this.$toasted.show("Toasted !!", {
+          theme: "toasted-primary",
+          position: "bottom-center",
+          duration : 5000
+        })
+      )
     }
   }
 }

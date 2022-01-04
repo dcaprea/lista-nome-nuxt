@@ -14,19 +14,21 @@
     ></v-progress-circular>
     </div>
 
-    <ul v-if="!load">
+    <ul v-if="!load" class="lista-nomes">
       <li v-for="item in items" :key="item.id">
         {{ item.nome }}
         <v-icon
-          large
-          color="green darken-2"
+          :id="item.id"
+          v-on:click="deleteItem(`${item.id}`)"
+          medium
+          color="red darken-2"
         >
           mdi-delete
         </v-icon>
       </li>
     </ul>
       <v-btn
-        class="ma-2"
+        class="ma-1"
         color="primary"
         dark
         to="/adicionar"
@@ -48,8 +50,8 @@
 export default {
   name: 'Listar',
   mounted: function(){
-    this.load = true;
-    this.listaUsuarios();
+    this.load = true
+    this.listUsers()
   },
   data(){
     return {
@@ -59,12 +61,29 @@ export default {
     }
   },
   methods: {
-    async listaUsuarios() {
+    async listUsers() {
       const nome = await this.$axios.$get('http://localhost:3004/nomes')
       this.items = nome
-      this.load = false;
+      this.load = false
+    },
+    deleteItem(id){
+      this.load = true
+      this.$axios.$delete(`http://localhost:3004/nomes/${id}`
+      ).then(
+        () => {
+          this.listUsers()
+        }
+      )
     }
   }
 }
 </script>
 
+<style lang="scss">
+  .lista-nomes{
+    list-style: none;
+  }
+  li{
+    margin-bottom:10px;
+  }
+</style>
