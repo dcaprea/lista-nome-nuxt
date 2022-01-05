@@ -4,10 +4,8 @@ O objetivo desse projeto foi familiarizar com o NUXT e acoplar outros itens como
 
 ## Build Setup Backend
 
-$ yarn install
-$ Servidor na porta localhost:3004
+$ yarn server
 
 ## Build Setup Frontend
 
 $ yarn dev
-$ json-server --watch db.json --port 3004

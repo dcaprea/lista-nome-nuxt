@@ -14,6 +14,7 @@
 
 <script>
 import Input from '../components/Input/Input'
+import Toasted from 'vue-toasted';
 
 export default {
   name: 'Adicionar',
@@ -47,11 +48,7 @@ export default {
         nome: valor,
         id: this.novoId
       }).then(
-        this.$toasted.show("Toasted !!", {
-          theme: "toasted-primary",
-          position: "bottom-center",
-          duration : 5000
-        })
+        this.$toasted.show('hello billo')
       )
     }
   }
